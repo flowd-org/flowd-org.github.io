@@ -5,6 +5,10 @@ title = "flowd.org"
 
 # Tell Hugo to import the Hextra theme
 [module]
+  [module.hugoVersion]
+    extended = true
+    min = "0.141.0"
+
   [[module.imports]]
     path = "github.com/imfing/hextra"
 
