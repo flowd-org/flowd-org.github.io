@@ -1,0 +1,50 @@
+/* Catppuccin Frappé for highlight.js (local) */
+:root {
+  --frappe-base: #303446;
+  --frappe-surface0: #414559;
+  --frappe-text: #c6d0f5;
+  --frappe-subtext0: #a5adce;
+  --frappe-blue: #8caaee;
+  --frappe-sapphire: #85c1dc;
+  --frappe-green: #a6d189;
+  --frappe-yellow: #e5c890;
+  --frappe-mauve: #ca9ee6;
+  --frappe-red: #e78284;
+  --frappe-teal: #81c8be;
+  --frappe-peach: #ef9f76;
+}
+
+/* Base */
+.hljs, pre code.hljs { display:block; overflow-x:auto; padding: 1rem; background: var(--frappe-base); color: var(--frappe-text); border-radius: 10px; border: 1px solid rgba(255,255,255,0.06); box-shadow: 0 12px 30px rgba(0,0,0,0.15); }
+
+/* Comments */
+.hljs-comment, .hljs-quote { color: var(--frappe-subtext0); font-style: italic; }
+
+/* Keywords & declarations */
+.hljs-keyword, .hljs-selector-tag, .hljs-doctag { color: var(--frappe-mauve); }
+
+/* Types, classes, titles */
+.hljs-type, .hljs-class .hljs-title, .hljs-title.class_, .hljs-title.classtype { color: var(--frappe-sapphire); }
+.hljs-title.function_, .hljs-title.function { color: var(--frappe-blue); }
+
+/* Literals & numbers */
+.hljs-literal, .hljs-number, .hljs-symbol, .hljs-bullet { color: var(--frappe-yellow); }
+
+/* Strings */
+.hljs-string, .hljs-regexp, .hljs-addition { color: var(--frappe-green); }
+
+/* Attributes & names */
+.hljs-attribute, .hljs-name, .hljs-attr, .hljs-variable, .hljs-property { color: var(--frappe-blue); }
+
+/* Builtins */
+.hljs-built_in, .hljs-template-variable, .hljs-selector-attr, .hljs-selector-pseudo { color: var(--frappe-teal); }
+
+/* Meta & tags */
+.hljs-meta, .hljs-tag { color: var(--frappe-peach); }
+
+/* Deletions */
+.hljs-deletion { color: var(--frappe-red); }
+
+/* Emphasis & strong */
+.hljs-emphasis { font-style: italic; }
+.hljs-strong { font-weight: 700; }

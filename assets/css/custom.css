@@ -1,0 +1,2179 @@
+/* Custom tweaks for home page spacing, colors, and diagram sizing (Hextra)
+   Non-invasive; can be removed anytime. */
+
+/* Palette tuned to the reference header (teal→azure) */
+:root {
+  /* keep legacy vars for fallbacks */
+  --primary-hue: 213deg;
+  --primary-saturation: 88%;
+  --primary-lightness: 36%;
+
+  /* New brand colors */
+  --brand-cyan-700: #008CC6;
+  /* deep cyan */
+  --brand-cyan-600: #17A7D5;
+  /* azure */
+  --brand-cyan-500: #27B2E6;
+  /* light azure */
+  --brand-sky-300: #6EC8F1;
+  /* sky */
+  --brand-navy-800: #0A3E8C;
+  /* deep navy end-stop */
+  --brand-ink: #111111;
+  /* grayscale ink */
+}
+
+/* Global font unification: base + code only */
+html,
+body,
+.prose,
+.hextra-home,
+.hextra-home .content,
+.hextra-home .content .prose,
+.hero-copy,
+.why-grid,
+.hextra-feature-grid,
+.architecture-diagram {
+  font-family: "Overpass", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+code,
+pre,
+kbd,
+samp,
+.preview-code,
+.hero-preview__main code {
+  font-family: "Overpass Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+/* Hero inspired by Lotus Docs */
+.home-hero {
+  width: 100%;
+  max-width: min(92vw, 1400px);
+  /* match section width; prevents overflow when parent has padding */
+  margin: 0 auto 0;
+  padding: clamp(2.5rem, 6vw, 5.5rem);
+  border-radius: 1.1rem;
+  background: linear-gradient(135deg, #EAF7FF 0%, var(--brand-sky-300) 38%, var(--brand-cyan-600) 70%, var(--brand-navy-800) 100%);
+  box-shadow: 0 24px 60px rgba(5, 20, 51, 0.25);
+  color: #121212;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+  position: relative;
+  box-sizing: border-box;
+  /* ensure padding/border don't break centering */
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(2rem, 4vw, 4.5rem);
+  align-items: stretch;
+  /* allow right column to grow vertically */
+}
+
+@media (min-width: 980px) {
+
+  /* Give the left copy a comfortable fixed range and let the terminal use the rest */
+  .hero-grid {
+    grid-template-columns: minmax(400px, 500px) 1fr;
+  }
+}
+
+
+.hero-grid {
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: clamp(2rem, 4vw, 4.5rem);
+  align-items: center;
+}
+
+.hero-copy h1 {
+  font-size: clamp(2rem, 3.6vw, 3.1rem);
+  font-weight: 800;
+  line-height: 1.15;
+  margin: 0 0 0.75rem;
+}
+
+.hero-subtitle {
+  font-size: clamp(1rem, 1.6vw, 1.15rem);
+  color: rgba(17, 17, 17, 0.85);
+  margin-bottom: 1rem;
+}
+
+/* Section subhead - lighter and normal weight for hierarchy */
+.section-subhead {
+  font-weight: 400;
+  color: #4b5563;
+  /* gray-600 */
+  margin-top: -0.5rem;
+}
+
+/* Muted section background to break visual rhythm */
+.section-muted {
+  /* light azure gradient, subtle like hero */
+  background: linear-gradient(135deg, rgba(245, 250, 255, 0.98) 0%, rgba(234, 246, 255, 0.96) 45%, rgba(0, 140, 198, 0.06) 100%);
+  border-radius: 1rem;
+  padding: 1.25rem;
+}
+
+/* White card-like section wrapper for feature sections */
+.section-white {
+  background: #FFFFFF;
+  border-radius: 1rem;
+  padding: 1.25rem;
+  border: 0;
+  box-shadow: 0 12px 30px rgba(7, 27, 68, 0.06);
+}
+
+/* When a feature grid lives inside a section box, drop its own background */
+.section-white .hextra-feature-grid {
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 3rem 0 0 0 !important;
+  border-radius: 0 !important;
+}
+
+
+
+.hero-subtitle {
+  font-size: clamp(1rem, 1.7vw, 1.2rem);
+  color: rgba(17, 17, 17, 0.85);
+  margin-top: 0.5rem;
+}
+
+.hero-highlights {
+  list-style: none;
+  padding: 0;
+  margin: 1.5rem 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.hero-highlights li {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75rem;
+  font-weight: 600;
+  color: rgba(5, 22, 50, 0.92);
+  font-size: 1.05rem;
+}
+
+.hero-highlights li::before {
+  content: "";
+  width: 36px;
+  height: 36px;
+  border-radius: 12px;
+  background: rgba(36, 107, 255, 0.14);
+  flex-shrink: 0;
+  margin-top: 0.1rem;
+}
+
+.why-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: clamp(1rem, 2.8vw, 2rem);
+  margin: 1.75rem 0 0;
+}
+
+@media (min-width: 980px) {
+
+  /* Force exactly 3 columns on wide screens (2 rows of 3) */
+  .hextra-home .content .why-grid,
+  .why-grid.why-grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr)) !important;
+  }
+
+  /* Community grid uses 2x2 layout on wide screens */
+  .hextra-home .content .why-grid--two,
+  .hextra-home .content .why-grid.why-grid--two,
+  .why-grid.why-grid--two {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+  }
+}
+
+/* Increase gap between headings/subheading and grids inside muted sections */
+.section-muted .why-grid {
+  margin-top: 3rem !important;
+}
+
+.section-muted h2+.why-grid {
+  margin-top: 3rem !important;
+}
+
+.section-muted .section-subhead+.why-grid {
+  margin-top: 3rem !important;
+}
+
+/* Normalize spacing between heading and subheading across section types */
+.section-white h2+.section-subhead,
+.section-muted h2+.section-subhead {
+  margin-top: 0.9rem !important;
+}
+
+/* Navbar: bump font size slightly */
+.hextra-nav-container nav a {
+  font-size: 1.1rem !important;
+  font-weight: 700 !important;
+}
+
+/* Brand (flowd.org) size/weight to match nav and stand out slightly */
+.hextra-nav-container nav>a[href="/"] span {
+  font-size: 1.2rem !important;
+  font-weight: 800 !important;
+  letter-spacing: -0.01em;
+}
+
+/* Footer layout: center copyright/license text; move Powered by to right */
+.hextra-footer .hextra-max-footer-width>div {
+  display: grid !important;
+  grid-template-columns: 1fr auto 1fr;
+  align-items: center;
+}
+
+/* Center cell: replace theme text with our license string using a pseudo-element */
+.hextra-footer .hextra-max-footer-width>div>[class*="hx:text-xs"] {
+  grid-column: 2;
+  justify-self: center;
+  margin: 0 !important;
+  position: relative;
+}
+
+/* Right cell: Powered by Hextra */
+.hextra-footer .hextra-max-footer-width>div>[class*="hx:font-semibold"] {
+  grid-column: 3;
+  justify-self: end;
+  margin: 0 !important;
+}
+
+/* Navbar: GitHub link icon-only */
+/* Navbar: GitHub link icon-only */
+
+
+.hextra-nav-container nav a[href="https://github.com/flowd-org/flowd"]::before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background: currentColor;
+  -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor'><path d='M12 .5C5.65.5.5 5.64.5 12a11.5 11.5 0 008.02 10.93c.6.12.82-.25.82-.57v-2c-3.26.71-3.95-1.39-3.95-1.39-.55-1.38-1.35-1.75-1.35-1.75-1.1-.76.08-.75.08-.75 1.2.09 1.83 1.23 1.83 1.23 1.08 1.84 2.82 1.31 3.51 1 .11-.79.42-1.31.77-1.61-2.6-.3-5.34-1.3-5.34-5.8 0-1.28.46-2.32 1.22-3.14-.12-.3-.53-1.52.11-3.16 0 0 .99-.32 3.25 1.2a11.2 11.2 0 015.92 0c2.26-1.52 3.25-1.2 3.25-1.2.64 1.64.23 2.85.12 3.16.76.82 1.22 1.86 1.22 3.14 0 4.52-2.74 5.5-5.36 5.79.44.38.83 1.12.83 2.26v3.35c0 .32.21.69.83.57A11.5 11.5 0 0023.5 12C23.5 5.64 18.36.5 12 .5z'/></svg>") center / contain no-repeat;
+  mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='currentColor'><path d='M12 .5C5.65.5.5 5.64.5 12a11.5 11.5 0 008.02 10.93c.6.12.82-.25.82-.57v-2c-3.26.71-3.95-1.39-3.95-1.39-.55-1.38-1.35-1.75-1.35-1.75-1.1-.76.08-.75.08-.75 1.2.09 1.83 1.23 1.83 1.23 1.08 1.84 2.82 1.31 3.51 1 .11-.79.42-1.31.77-1.61-2.6-.3-5.34-1.3-5.34-5.8 0-1.28.46-2.32 1.22-3.14-.12-.3-.53-1.52.11-3.16 0 0 .99-.32 3.25 1.2a11.2 11.2 0 015.92 0c2.26-1.52 3.25-1.2 3.25-1.2 .64 1.64 .23 2.85 .12 3.16 .76 .82 1.22 1.86 1.22 3.14 0 4.52 -2.74 5.5 -5.36 5.79 .44 .38 .83 1.12 .83 2.26v3.35c0 .32 .21 .69 .83 .57A11.5 11.5 0 0023.5 12C23.5 5.64 18.36 .5 12 .5z'/></svg>") center / contain no-repeat;
+  margin-right: .25rem;
+}
+
+/* Hide theme toggles only (keep default footer visible) */
+.hextra-footer .hextra-theme-toggle,
+.hextra-footer .hextra-theme-toggle-options {
+  display: none !important;
+}
+
+/* --- Docs code snippets: Catppuccin Frappé (highlight.js) --- */
+/* Leave block styling to highlight.js theme; only style inline code chips */
+.prose :not(pre)>code,
+.content :not(pre)>code {
+  background: rgba(65, 69, 89, 0.85);
+  color: #c6d0f5;
+  border: 1px solid rgba(129, 139, 167, 0.3);
+  border-radius: 4px;
+  padding: 0.15rem 0.4rem;
+  font-size: 0.9em;
+}
+
+
+/* Inline Monokai override removed: highlight.js will handle colors */
+
+/* Chroma highlighting disabled site-wide in favor of highlight.js */
+
+.why-card {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  border-left: 0;
+  /* remove vertical accent line */
+  padding-left: 0;
+  /* align with feature cards */
+}
+
+.why-card-icon {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  margin-top: 0.15rem;
+  color: var(--brand-cyan-700);
+  background: transparent;
+}
+
+.why-card-icon svg {
+  width: 22px;
+  height: 22px;
+  stroke: currentColor;
+  fill: none;
+  stroke-width: 1.6;
+}
+
+.why-card-icon svg * {
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* old icon style removed; unified to currentColor above */
+.why-card h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  /* match feature-card text-2xl */
+  font-weight: 500;
+  /* match font-medium */
+  line-height: 1.5;
+  color: #111111;
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+}
+
+/* Collapsible behavior: enable hiding only when JS has initialized */
+
+
+.why-toggle {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.25);
+  background: #fff;
+  color: #111;
+  font-weight: 800;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.why-toggle:hover {
+  background: #f2f4f8;
+}
+
+.why-card .why-sub {
+  margin: 0.2rem 0 0.25rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: rgba(5, 22, 50, 0.72);
+}
+
+.why-card p {
+  margin: 0.15rem 0 0;
+  color: #444;
+  font-size: 0.82rem;
+  line-height: 1.45;
+}
+
+@media (max-width: 720px) {
+  .why-grid {
+    gap: 1.5rem;
+  }
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-top: 1.5rem;
+}
+
+.hero-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 2rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 1rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  text-decoration: none;
+}
+
+.hero-button--primary {
+  background: var(--brand-cyan-700);
+  color: #fff;
+  box-shadow: 0 10px 25px rgba(0, 140, 198, 0.35);
+}
+
+.hero-button--primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(0, 140, 198, 0.45);
+}
+
+.hero-button--ghost {
+  background: rgba(255, 255, 255, 0.75);
+  color: #1a1a1a;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.hero-button--ghost:hover {
+  transform: translateY(-2px);
+}
+
+.hero-button--icon {
+  gap: 0.4rem;
+}
+
+.hero-button--icon svg {
+  width: 1.1rem;
+  height: 1.1rem;
+  fill: currentColor;
+}
+
+.hero-license {
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  margin-top: 0.75rem;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+/* Bottom CTA banner */
+.bottom-cta {
+  background: linear-gradient(135deg, #EAF7FF 0%, var(--brand-sky-300) 38%, var(--brand-cyan-600) 70%, var(--brand-navy-800) 100%);
+  color: #121212;
+  /* match hero copy color */
+  border-radius: 1.1rem;
+  /* match hero rounding */
+  padding: clamp(1.4rem, 3vw, 2rem);
+  margin: 2.5rem auto 1.5rem;
+  text-align: center;
+  border: 0;
+  /* remove border as requested */
+  box-shadow: 0 24px 60px rgba(5, 20, 51, 0.25);
+  /* hero-like shadow */
+  box-sizing: border-box;
+  width: 100%;
+  max-width: min(92vw, 1400px);
+}
+
+.bottom-cta h3 {
+  font-size: clamp(1.6rem, 2.4vw, 2rem);
+  font-weight: 800;
+  margin: 0 0 .5rem;
+  color: #121212;
+}
+
+.bottom-cta p {
+  color: rgba(17, 17, 17, 0.88);
+  margin: 0 0 1rem;
+}
+
+.bottom-cta .cta-buttons {
+  display: inline-flex;
+  gap: .75rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.bottom-cta .cta-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: .8rem 1.4rem;
+  border-radius: 999px;
+  font-weight: 700;
+  text-decoration: none;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Match hero button styles */
+.bottom-cta .cta-primary {
+  background: var(--brand-cyan-700);
+  color: #fff;
+  box-shadow: 0 10px 25px rgba(0, 140, 198, 0.35);
+  border: 1px solid transparent;
+}
+
+.bottom-cta .cta-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 14px 30px rgba(0, 140, 198, 0.45);
+}
+
+.bottom-cta .cta-secondary {
+  background: rgba(255, 255, 255, 0.75);
+  color: #1a1a1a;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+}
+
+.bottom-cta .cta-secondary:hover {
+  transform: translateY(-2px);
+}
+
+.hero-preview {
+  width: 100%;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: flex-start;
+}
+
+.hero-preview h3 {
+  margin: 0.4rem 0 0.75rem;
+  font-size: 1.4rem;
+  color: #fff;
+  text-align: right;
+}
+
+.tmux-demo {
+  width: 100%;
+  max-width: none;
+  flex: 1 1 auto;
+  display: flex;
+  height: 100%;
+  margin: 2px 2px 2px 0;
+}
+
+.tmux {
+  width: 100%;
+  flex: 1 1 auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Hug terminal to hero edges (desktop) */
+.home-hero {
+  position: relative;
+}
+
+@media (min-width: 980px) {
+  .hero-preview {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    bottom: 20px;
+    width: min(50%, 720px);
+  }
+
+  .tmux-demo {
+    margin: 0;
+    height: 100%;
+  }
+}
+
+/* Remove old complex preview window/sidebar styles */
+.hero-preview__window,
+.hero-preview__chrome,
+.hero-preview__layout,
+.hero-preview__sidebar,
+.hero-preview__main,
+.preview-path,
+.preview-meta,
+.status-dot {
+  display: none !important;
+}
+
+/* Final layout override (ensure right pane uses remaining space) */
+@media (min-width: 980px) {
+  .hero-grid {
+    grid-template-columns: minmax(400px, 500px) 1fr !important;
+  }
+}
+
+/* Small right padding in terminal so text never hugs edge */
+.tmux__pane {
+  padding-right: 1.25rem;
+}
+
+/* Make the home page full width */
+.hextra-home {
+  --hextra-max-page-width: 100%;
+}
+
+.hextra-home .content,
+.hextra-home .content .prose {
+  max-width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+/* Global vertical spacing on home */
+.hextra-home .content>* {
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+/* Align all sections to hero width and center them */
+.hextra-home .content>*:not(.home-hero) {
+  max-width: min(92vw, 1400px);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Spacing scale: use current hr gap as the unit */
+:root {
+  --home-gap-unit: 2.5rem;
+}
+
+/* Hero → first block gap: 5rem */
+.home-hero {
+  margin-bottom: 2rem !important;
+}
+
+/* keep HR as a structural marker but remove its visual/margin impact */
+.home-hero+hr {
+  margin: 0 !important;
+  height: 0 !important;
+  border: 0 !important;
+}
+
+/* Gap between all subsequent blocks: 2.5rem */
+.section-white,
+.section-muted {
+  margin-top: 2.5rem !important;
+}
+
+.hextra-home .content h2 {
+  margin-top: 1.5rem;
+  margin-bottom: 1.25rem;
+  font-size: clamp(2rem, 2.8vw, 2.5rem);
+  font-weight: 800;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
+  position: relative;
+  padding-bottom: 0.25rem;
+  background-image: linear-gradient(90deg, #111111 0%, #4b5563 100%) !important;
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  color: transparent !important;
+}
+
+.hextra-home .content h2 {
+  position: relative;
+  display: inline-block;
+  padding-bottom: 0.75rem;
+}
+
+.hextra-home .content h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 72px;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--brand-cyan-700) 0%, var(--brand-cyan-500) 60%, transparent 100%);
+  opacity: 1;
+}
+
+/* Enforce gradient on any h2 under boxed sections and .not-prose */
+.hextra-home .content .section-white>h2,
+.hextra-home .content .section-muted>h2,
+.hextra-home .content h2.not-prose {
+  background-image: linear-gradient(90deg, #111111 0%, #5b6570 100%) !important;
+  /* a touch lighter than gray-600 */
+  -webkit-background-clip: text !important;
+  background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  /* fix for Safari/Chrome */
+  color: transparent !important;
+  /* fallback */
+  display: inline-block;
+  /* ensure gradient width tracks text */
+}
+
+.hextra-home .content h3 {
+  margin-top: 2rem;
+  margin-bottom: 1rem;
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  font-weight: 700;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.hextra-home .content p,
+.hextra-home .content ul,
+.hextra-home .content ol {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+
+/* Alternating light section backgrounds (selected blocks) */
+.hextra-home .content .hextra-feature-grid {
+  background: #F6F9FC;
+  border-radius: 1rem;
+  padding: clamp(0.75rem, 1.6vw, 1.25rem);
+  margin: 2rem 0;
+}
+
+.hextra-feature-grid svg {
+  stroke: var(--brand-cyan-700);
+  color: var(--brand-cyan-700);
+  fill: none;
+  stroke-width: 1.6;
+}
+
+/* Typography normalization: make why-cards match feature cards */
+.hextra-home .content .why-card h3,
+.hextra-home .content .section-muted .why-card h3 {
+  margin: 0;
+  font-size: 1.5rem;
+  /* match feature-card h3 (text-2xl) */
+  font-weight: 500;
+  /* feature cards use font-medium */
+  line-height: 1.5;
+  /* feature-card leading-6 */
+  color: #111111;
+}
+
+.hextra-home .content .why-card p,
+.hextra-home .content .section-muted .why-card p {
+  font-size: 0.875rem;
+  /* text-sm */
+  line-height: 1.5;
+  /* leading-6 */
+  color: #6b7280;
+  /* gray-500 */
+}
+
+/* icon scale align with feature cards */
+.hextra-home .content .why-card-icon svg {
+  width: 24px;
+  height: 24px;
+}
+
+/* Feature-card typography and alignment to match why-cards */
+.hextra-feature-card h3 {
+  font-size: 1.5rem !important;
+  /* text-2xl */
+  font-weight: 500 !important;
+  /* font-medium */
+  line-height: 1.5 !important;
+  /* leading-6 */
+  margin: 0 0 .25rem !important;
+  color: #111111;
+}
+
+/* Body text matches why-card paragraph */
+.hextra-feature-card p {
+  font-size: 0.875rem !important;
+  /* text-sm */
+  line-height: 1.5 !important;
+  /* leading-6 */
+  color: #6b7280 !important;
+  /* gray-500 */
+}
+
+/* Align feature-card paragraph under the heading text, not the icon */
+.hextra-feature-card h3+p {
+  margin-left: 2rem;
+}
+
+/* Remove borders from feature cards regardless of theme utilities */
+.hextra-feature-card {
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+.hextra-feature-grid .hextra-feature-card {
+  border: 0 !important;
+  box-shadow: none !important;
+}
+
+/* removed: feature-card typography left to theme defaults */
+
+.hextra-home .content .hextra-cards.section-alt {
+  background: #FAFBFF;
+  border-radius: 1rem;
+  padding: clamp(0.75rem, 1.6vw, 1.25rem);
+  margin: 2rem 0;
+}
+
+/* Callouts spacing (if present) */
+.hextra-home .content .hextra-callout {
+  margin: 2rem 0;
+}
+
+/* Architecture diagram wrapper aligned with hero theme */
+.architecture-diagram {
+  margin: 2.5rem auto 4rem;
+  padding: clamp(1.25rem, 2vw, 2rem);
+  border-radius: 1.5rem;
+  background: linear-gradient(135deg, rgba(239, 245, 255, 0.95) 0%, rgba(226, 246, 255, 0.9) 45%, rgba(0, 119, 200, 0.08) 100%);
+  border: 1px solid rgba(11, 61, 145, 0.15);
+  box-shadow: 0 20px 45px rgba(7, 27, 68, 0.08);
+  max-width: min(1100px, 94vw);
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+/* --- Docs page typography (match home rhythm) --- */
+article .content h1,
+article .prose h1 {
+  margin-top: 2.5rem;
+  margin-bottom: 1rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  position: relative;
+  padding-bottom: 0.25rem;
+}
+
+article .content h1::after,
+article .prose h1::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.4rem;
+  width: 72px;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--brand-cyan-700) 0%, var(--brand-cyan-500) 60%, transparent 100%);
+  opacity: 0.5;
+}
+
+article .content h2,
+article .prose h2 {
+  margin-top: 2.25rem;
+  margin-bottom: 0.85rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  position: relative;
+  padding-bottom: 0.2rem;
+  /* Gradient text like landing page */
+  background-image: linear-gradient(90deg, #111111 0%, #4b5563 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+  /* Remove any unwanted borders */
+  border-top: none !important;
+  border-bottom: none !important;
+}
+
+article .content h2::after,
+article .prose h2::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.4rem;
+  width: 60px;
+  height: 3px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--brand-cyan-700) 0%, var(--brand-cyan-500) 60%, transparent 100%);
+  opacity: 0.45;
+}
+
+/* --- Docs callouts --- */
+/* Modern callout styling with Catppuccin Frappé colors */
+.prose .callout,
+.content .callout,
+.prose .admonition,
+.content .admonition {
+  margin: 1.25rem 0;
+  padding: 1rem 1.25rem;
+  border-radius: 8px;
+  border-left: 4px solid;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+  transition: box-shadow 0.2s ease;
+}
+
+.prose .callout:hover,
+.content .callout:hover {
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.12);
+}
+
+/* Info callout (default - blue) */
+.prose .callout,
+.content .callout,
+.prose .admonition,
+.content .admonition {
+  background: rgba(140, 170, 238, 0.12);
+  border-left-color: #8caaee;
+}
+
+/* Warning callout (peach/orange) */
+.callout.warn,
+.admonition.warn {
+  background: rgba(239, 159, 118, 0.12);
+  border-left-color: #ef9f76;
+}
+
+/* Tip callout (green) */
+.callout.tip,
+.admonition.tip {
+  background: rgba(166, 209, 137, 0.12);
+  border-left-color: #a6d189;
+}
+
+/* Note callout (gray) */
+.callout.note,
+.admonition.note {
+  background: rgba(129, 139, 167, 0.12);
+  border-left-color: #838ba7;
+}
+
+/* Callout headings */
+.prose .callout h4,
+.content .callout h4,
+.prose .admonition h4,
+.content .admonition h4 {
+  margin: 0 0 0.5rem;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+/* --- Docs sidebar divider: brand tint --- */
+.hextra-sidebar-container ul[class*="before:bg-gray-200"]::before {
+  background: linear-gradient(180deg, rgba(0, 140, 198, 0.35) 0%, rgba(0, 140, 198, 0) 100%) !important;
+}
+
+.architecture-diagram__label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+  color: rgba(7, 27, 68, 0.85);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.architecture-diagram__icon {
+  font-size: 1.1rem;
+}
+
+/* Diagram sizing: wide & readable */
+.hextra-home .content .mermaid,
+.hextra-home .content pre:has(code.language-mermaid) {
+  display: block;
+  width: min(100%, 1600px);
+  margin: 0 auto;
+  background: transparent;
+  border-radius: 1rem;
+  padding: 0;
+  overflow: visible;
+}
+
+/* Architecture block needs extra vertical room */
+.architecture-diagram .mermaid,
+.architecture-diagram pre:has(code.language-mermaid) {
+  width: 100%;
+  min-height: 420px;
+  margin: 0 auto;
+}
+
+/* Scale up diagram if Mermaid init is ignored by theme */
+.hextra-home .content .mermaid svg,
+.hextra-home .content pre:has(code.language-mermaid) svg,
+.hextra-home .content svg[id^="mermaid-"],
+.hextra-home .content svg[aria-roledescription="flowchart"] {
+  width: 100% !important;
+  height: auto !important;
+  max-width: none;
+  margin: 0 auto;
+  display: block;
+}
+
+.architecture-diagram .mermaid svg,
+.architecture-diagram pre:has(code.language-mermaid) svg {
+  width: 100% !important;
+  height: auto !important;
+  transform: none;
+  max-width: 100%;
+}
+
+.hextra-home .content .mermaid svg text,
+.hextra-home .content pre:has(code.language-mermaid) svg text,
+.hextra-home .content svg[id^="mermaid-"] text,
+.hextra-home .content svg[aria-roledescription="flowchart"] text {
+  font-size: 30px !important;
+}
+
+/* --- Tmux-like demo block (Catppuccin Mocha) --- */
+:root {
+  /* Catppuccin Frappé palette */
+  --ctp-base: #303446;
+  --ctp-surface0: #414559;
+  --ctp-surface1: #51576d;
+  --ctp-text: #c6d0f5;
+  --ctp-subtext0: #a5adce;
+  --ctp-blue: #8caaee;
+  /* blue */
+  --ctp-green: #a6d189;
+  /* green */
+  --ctp-yellow: #e5c890;
+  /* yellow */
+  --ctp-pink: #ca9ee6;
+  /* use mauve for keywords */
+  --ctp-sapphire: #85c1dc;
+  /* sapphire */
+}
+
+.tmux {
+  background: var(--ctp-base);
+  color: var(--ctp-text);
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  overflow: hidden;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+}
+
+.tmux__tabs {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: .5rem;
+  padding: .45rem .75rem;
+  background: var(--ctp-surface0);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  font-family: "Overpass Mono", ui-monospace, monospace;
+  font-size: .8rem;
+  color: var(--ctp-subtext0);
+}
+
+.tmux__dots {
+  display: inline-flex;
+  gap: .4rem;
+}
+
+.tmux__dots span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  display: inline-block;
+}
+
+.tmux__dots span:nth-child(1) {
+  background: #ff5f57;
+}
+
+.tmux__dots span:nth-child(2) {
+  background: #ffbd2e;
+}
+
+.tmux__dots span:nth-child(3) {
+  background: #28c840;
+}
+
+.tmux__title {
+  text-align: center;
+  font-weight: 600;
+  color: var(--ctp-subtext0);
+}
+
+.tmux__tabs-list {
+  display: inline-flex;
+  gap: .5rem;
+}
+
+.tmux__tab {
+  padding: .2rem .45rem;
+  border-radius: 6px;
+  background: transparent;
+  color: var(--ctp-subtext0);
+}
+
+.tmux__tab--active {
+  background: var(--ctp-surface1);
+  color: var(--ctp-blue);
+  font-weight: 700;
+}
+
+.tmux__pane {
+  padding: .75rem 1rem;
+  font-family: "Overpass Mono", ui-monospace, monospace;
+  font-size: .85rem;
+  line-height: 1.1;
+  flex: 1 1 auto;
+  overflow: auto;
+}
+
+.tmux__pane pre {
+  margin: 0;
+  white-space: pre-wrap;
+  word-break: break-word;
+  line-height: 1;
+}
+
+.tmux__status {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: .75rem;
+  padding: .3rem .6rem;
+  background: var(--ctp-surface0);
+  border-top: 1px solid rgba(255, 255, 255, 0.05);
+  font-family: "Overpass Mono", ui-monospace, monospace;
+  font-size: .75rem;
+  color: var(--ctp-subtext0);
+  margin-top: auto;
+}
+
+.tmux__left span {
+  margin-right: .75rem;
+}
+
+.tmux__dot {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--ctp-green);
+  box-shadow: 0 0 10px rgba(166, 227, 161, 0.5);
+  margin-right: .35rem;
+}
+
+.tmux .cmd {
+  color: var(--ctp-blue);
+}
+
+.tmux .flag {
+  color: var(--ctp-sapphire);
+}
+
+.tmux .comment {
+  color: var(--ctp-subtext0);
+}
+
+.tmux .key {
+  color: var(--ctp-yellow);
+}
+
+/* Make bash continuation backslashes very visible */
+.tmux .bs {
+  color: var(--ctp-text);
+  font-weight: 700;
+}
+
+/* --- Docs code blocks: Catppuccin Frappé (matching tmux terminal) --- */
+/* Style Chroma code blocks in docs to match the tmux pane aesthetic */
+.prose .highlight,
+.content .highlight,
+article .highlight {
+  margin: 1.25rem 0;
+  border-radius: 10px;
+  background: var(--ctp-base);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  overflow: hidden;
+}
+
+.prose .highlight pre,
+.content .highlight pre,
+article .highlight pre {
+  margin: 0;
+  padding: 0.75rem 1rem;
+  background: transparent;
+  overflow-x: auto;
+}
+
+.prose .highlight code,
+.content .highlight code,
+article .highlight code {
+  font-family: "Overpass Mono", ui-monospace, monospace;
+  font-size: 0.85rem;
+  line-height: 1.6;
+  color: var(--ctp-text);
+  background: transparent;
+}
+
+/* Chroma syntax highlighting classes for Catppuccin Frappé */
+.chroma {
+  color: var(--ctp-text);
+  background-color: var(--ctp-base);
+}
+
+.chroma .err {
+  color: #e78284;
+}
+
+.chroma .k {
+  color: #ca9ee6;
+}
+
+/* keywords - mauve/pink */
+.chroma .kc {
+  color: #ef9f76;
+}
+
+.chroma .kd {
+  color: #e78284;
+}
+
+.chroma .kn {
+  color: #81c8be;
+}
+
+.chroma .kp {
+  color: #ca9ee6;
+}
+
+.chroma .kr {
+  color: #ca9ee6;
+}
+
+.chroma .kt {
+  color: #e78284;
+}
+
+.chroma .na {
+  color: var(--ctp-blue);
+}
+
+/* attributes - blue */
+.chroma .nc {
+  color: var(--ctp-yellow);
+}
+
+/* class names - yellow */
+.chroma .no {
+  color: var(--ctp-yellow);
+}
+
+.chroma .nd {
+  color: var(--ctp-blue);
+  font-weight: bold;
+}
+
+.chroma .ni {
+  color: #81c8be;
+}
+
+.chroma .ne {
+  color: #ef9f76;
+}
+
+.chroma .nl {
+  color: #99d1db;
+}
+
+.chroma .nn {
+  color: #ef9f76;
+}
+
+.chroma .py {
+  color: #ef9f76;
+}
+
+.chroma .nt {
+  color: #ca9ee6;
+}
+
+.chroma .nb {
+  color: #99d1db;
+}
+
+/* built-ins */
+.chroma .bp {
+  color: #99d1db;
+}
+
+.chroma .nv {
+  color: #f2d5cf;
+}
+
+/* variables */
+.chroma .vc {
+  color: #f2d5cf;
+}
+
+.chroma .vg {
+  color: #f2d5cf;
+}
+
+.chroma .vi {
+  color: #f2d5cf;
+}
+
+.chroma .vm {
+  color: #f2d5cf;
+}
+
+.chroma .nf {
+  color: var(--ctp-blue);
+}
+
+/* functions - blue */
+.chroma .fm {
+  color: var(--ctp-blue);
+}
+
+.chroma .s {
+  color: var(--ctp-green);
+}
+
+/* strings - green */
+.chroma .sa {
+  color: #e78284;
+}
+
+.chroma .sb {
+  color: var(--ctp-green);
+}
+
+.chroma .sc {
+  color: var(--ctp-green);
+}
+
+.chroma .dl {
+  color: var(--ctp-blue);
+}
+
+.chroma .sd {
+  color: #737994;
+}
+
+.chroma .s2 {
+  color: var(--ctp-green);
+}
+
+.chroma .se {
+  color: var(--ctp-blue);
+}
+
+.chroma .sh {
+  color: #737994;
+}
+
+.chroma .si {
+  color: var(--ctp-green);
+}
+
+.chroma .sx {
+  color: var(--ctp-green);
+}
+
+.chroma .sr {
+  color: #81c8be;
+}
+
+.chroma .s1 {
+  color: var(--ctp-green);
+}
+
+.chroma .ss {
+  color: var(--ctp-green);
+}
+
+.chroma .m {
+  color: #ef9f76;
+}
+
+/* numbers */
+.chroma .mb {
+  color: #ef9f76;
+}
+
+.chroma .mf {
+  color: #ef9f76;
+}
+
+.chroma .mh {
+  color: #ef9f76;
+}
+
+.chroma .mi {
+  color: #ef9f76;
+}
+
+.chroma .il {
+  color: #ef9f76;
+}
+
+.chroma .mo {
+  color: #ef9f76;
+}
+
+.chroma .o {
+  color: var(--ctp-sapphire);
+}
+
+/* operators */
+.chroma .ow {
+  color: var(--ctp-sapphire);
+}
+
+.chroma .p {
+  color: var(--ctp-text);
+}
+
+/* punctuation */
+.chroma .c {
+  color: var(--ctp-subtext0);
+}
+
+/* comments */
+.chroma .ch {
+  color: var(--ctp-subtext0);
+}
+
+.chroma .cm {
+  color: var(--ctp-subtext0);
+}
+
+.chroma .c1 {
+  color: var(--ctp-subtext0);
+}
+
+.chroma .cs {
+  color: var(--ctp-subtext0);
+}
+
+.chroma .cp {
+  color: var(--ctp-subtext0);
+}
+
+.chroma .cpf {
+  color: var(--ctp-subtext0);
+}
+
+.chroma .gd {
+  color: #e78284;
+}
+
+/* diff delete */
+.chroma .ge {
+  font-style: italic;
+}
+
+.chroma .gr {
+  color: #e78284;
+}
+
+.chroma .gh {
+  color: var(--ctp-blue);
+  font-weight: bold;
+}
+
+.chroma .gi {
+  color: var(--ctp-green);
+}
+
+/* diff insert */
+.chroma .go {
+  color: var(--ctp-text);
+}
+
+.chroma .gp {
+  color: var(--ctp-blue);
+}
+
+.chroma .gs {
+  font-weight: bold;
+}
+
+.chroma .gu {
+  color: var(--ctp-blue);
+  font-weight: bold;
+}
+
+.chroma .gt {
+  color: #e78284;
+}
+
+.chroma .gl {
+  text-decoration: underline;
+}
+
+.chroma .w {
+  color: var(--ctp-text);
+}
+
+/* --- Lighten docs body text to match landing page --- */
+article .content p,
+article .prose p,
+article .content ul,
+article .prose ul,
+article .content ol,
+article .prose ol,
+article .content li,
+article .prose li {
+  color: #4b5563;
+  /* gray-600 - matches landing page section text */
+}
+
+/* Keep links visible with proper contrast */
+article .content a,
+article .prose a {
+  color: var(--brand-cyan-700);
+}
+
+/* --- Apply subtle light blue background to docs sidebars --- */
+/* Left sidebar - docs navigation */
+.hextra-sidebar-container,
+aside.hextra-sidebar {
+  background: linear-gradient(135deg, rgba(245, 250, 255, 0.98) 0%, rgba(234, 246, 255, 0.96) 45%, rgba(0, 140, 198, 0.06) 100%);
+  border-radius: 1rem;
+  padding: 1.25rem;
+}
+
+/* Right sidebar - table of contents ("On this page") */
+.hextra-toc,
+nav.hextra-toc {
+  background: linear-gradient(135deg, rgba(245, 250, 255, 0.98) 0%, rgba(234, 246, 255, 0.96) 45%, rgba(0, 140, 198, 0.06) 100%);
+  border-radius: 1rem;
+  padding: 1.25rem;
+}
+
+/* --- Make hero section taller and more prominent on widescreen --- */
+@media (min-width: 1200px) {
+  .home-hero {
+    min-height: 580px;
+    padding: clamp(3rem, 6vw, 6rem);
+  }
+
+  .hero-grid {
+    min-height: 480px;
+  }
+
+  /* Make tmux terminal taller with increased top/bottom margins */
+  .tmux-demo {
+    min-height: 420px;
+    margin-top: 2rem;
+    margin-bottom: 2rem;
+  }
+
+  .tmux {
+    min-height: 420px;
+  }
+
+  /* Better center the left content */
+  .hero-copy {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding-right: 1rem;
+  }
+}
+
+/* Extra tall for very wide screens */
+@media (min-width: 1600px) {
+  .home-hero {
+    min-height: 620px;
+  }
+
+  .hero-grid {
+    min-height: 520px;
+  }
+
+  .tmux-demo {
+    min-height: 460px;
+    margin-top: 2.5rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .tmux {
+    min-height: 460px;
+  }
+}
+
+/* --- Fix Sidebar Backgrounds & Disable Theme Toggle --- */
+
+/* 1. Disable Light/Dark Toggle */
+.hextra-theme-toggle,
+.nav-item-theme {
+  display: none !important;
+}
+
+/* 2. Fix Sidebar Footer Background */
+/* Remove white background from footer to let gradient show through */
+.hextra-sidebar-container .sidebar-footer,
+.hextra-sidebar-container .hextra-footer {
+  background: transparent !important;
+}
+
+/* 3. Fix TOC Background */
+/* Remove white background from TOC container */
+.hextra-toc,
+nav.hextra-toc {
+  background: transparent !important;
+  /* Ensure gradient on parent shows or re-apply if needed */
+}
+
+/* Re-apply gradient to the specific containers if they were relying on the removed white bg */
+/* Actually, we applied the gradient to .hextra-sidebar-container and .hextra-toc earlier. */
+/* The issue is likely inner elements having white backgrounds. */
+
+/* Ensure footer content doesn't have its own background */
+.sidebar-footer *,
+.hextra-footer * {
+  background: transparent !important;
+}
+
+/* Ensure TOC inner elements don't have white background */
+.hextra-toc *,
+nav.hextra-toc * {
+  background-color: transparent !important;
+}
+
+/* Fix sticky footer div in left sidebar */
+/* Override the utility class hx:bg-white that is forcing white background */
+.hextra-sidebar-container .hx\:sticky.hx\:bottom-0.hx\:bg-white {
+  background: transparent !important;
+  box-shadow: none !important;
+  border-top: none !important;
+}
+
+/* --- Sidebar Navigation Styling --- */
+
+/* Active Item: Hero gradient + Bold Black Text */
+.hextra-sidebar-container .hextra-sidebar-active-item {
+  background: linear-gradient(135deg, var(--brand-cyan-500) 0%, var(--brand-sky-300) 50%, #EAF7FF 100%) !important;
+  color: #111111 !important;
+  font-weight: 800 !important;
+  border-radius: 0.375rem;
+  /* rounded-md */
+}
+
+/* Hover Item: White Background + Punchy Light Blue Text */
+/* Exclude active item from hover styles */
+.hextra-sidebar-container a:hover:not(.hextra-sidebar-active-item) {
+  background-color: #ffffff !important;
+  color: var(--brand-cyan-500) !important;
+  transition: all 0.2s ease;
+}
+
+/* --- Docs Code Block & Scrollbar Fixes --- */
+
+/* Force Catppuccin Frappé background to match hero base */
+.content pre,
+.prose pre,
+.chroma {
+  background-color: #303446 !important;
+  color: #c6d0f5 !important;
+  border-radius: 0.5rem;
+}
+
+/* Custom Scrollbar */
+.content pre::-webkit-scrollbar {
+  height: 8px;
+  width: 8px;
+  background-color: transparent;
+}
+
+.content pre::-webkit-scrollbar-thumb {
+  background-color: #5b6570;
+  /* Subtle gray thumb */
+  border-radius: 0.5rem;
+  border: 2px solid #303446;
+  /* Padding effect */
+}
+
+/* Manual Syntax Highlighting Overrides to match Hero Tmux */
+.chroma .k,
+.chroma .kp,
+.chroma .kr {
+  color: var(--ctp-pink) !important;
+}
+
+/* Keywords */
+.chroma .s,
+.chroma .s1,
+.chroma .s2 {
+  color: var(--ctp-green) !important;
+}
+
+/* Strings */
+.chroma .na,
+.chroma .nf,
+.chroma .nx {
+  color: var(--ctp-blue) !important;
+}
+
+/* Functions/Commands */
+.chroma .nt,
+.chroma .nd {
+  color: var(--ctp-sapphire) !important;
+}
+
+/* Flags/Attributes */
+.chroma .c,
+.chroma .c1,
+.chroma .cm {
+  color: var(--ctp-subtext0) !important;
+}
+
+/* Comments */
+.chroma .m,
+.chroma .mi {
+  color: var(--ctp-yellow) !important;
+}
+
+/* Numbers */
+/* --- Mermaid Diagrams: Catppuccin Frappé Theme --- */
+/* Apply Catppuccin Frappé colors to all Mermaid diagrams */
+
+.mermaid {
+  background-color: var(--ctp-base) !important;
+}
+
+/* Mermaid theme variables */
+.mermaid svg {
+  background-color: var(--ctp-base);
+  font-family: "Overpass", system-ui, sans-serif;
+}
+
+/* Flowchart styling */
+.mermaid .node rect,
+.mermaid .node circle,
+.mermaid .node ellipse,
+.mermaid .node polygon {
+  fill: var(--ctp-sapphire) !important;
+  stroke: var(--ctp-sapphire) !important;
+  stroke-width: 2px !important;
+}
+
+.mermaid .node .label,
+.mermaid .nodeLabel,
+.mermaid .node text,
+.mermaid text.nodeLabel,
+.mermaid span.nodeLabel,
+.mermaid foreignObject div {
+  color: var(--ctp-base) !important;
+  fill: var(--ctp-base) !important;
+}
+
+/* Cluster/subgraph styling */
+.mermaid .cluster rect {
+  fill: none !important;
+  stroke: var(--ctp-sapphire) !important;
+  stroke-width: 2px !important;
+  opacity: 0.5 !important;
+}
+
+.mermaid .cluster .label,
+.mermaid .cluster-label,
+.mermaid .cluster text {
+  color: var(--ctp-text) !important;
+  fill: var(--ctp-text) !important;
+  font-weight: 700 !important;
+  font-size: 14px !important;
+}
+
+/* Edge/arrow styling */
+.mermaid .edgePath .path,
+.mermaid path.flowchart-link {
+  stroke: var(--ctp-green) !important;
+  stroke-width: 2px !important;
+}
+
+.mermaid .edgeLabel {
+  background-color: var(--ctp-base) !important;
+  color: var(--ctp-green) !important;
+  fill: var(--ctp-green) !important;
+}
+
+.mermaid .marker,
+.mermaid marker path,
+.mermaid .arrowheadPath {
+  fill: var(--ctp-green) !important;
+  stroke: var(--ctp-green) !important;
+}
+
+/* Sequence diagram styling */
+.mermaid .actor {
+  fill: var(--ctp-sapphire) !important;
+  stroke: var(--ctp-sapphire) !important;
+  stroke-width: 2px !important;
+}
+
+.mermaid .actor-line {
+  stroke: var(--ctp-surface1) !important;
+  stroke-width: 1px !important;
+  stroke-dasharray: 5, 5 !important;
+}
+
+.mermaid .messageLine0,
+.mermaid .messageLine1 {
+  stroke: var(--ctp-green) !important;
+  stroke-width: 2px !important;
+}
+
+.mermaid .messageText {
+  fill: var(--ctp-text) !important;
+  stroke: none !important;
+}
+
+.mermaid .labelBox {
+  fill: var(--ctp-surface0) !important;
+  stroke: var(--ctp-blue) !important;
+}
+
+.mermaid .labelText {
+  fill: var(--ctp-text) !important;
+}
+
+.mermaid .loopText,
+.mermaid .loopLine {
+  fill: var(--ctp-text) !important;
+  stroke: var(--ctp-sapphire) !important;
+}
+
+.mermaid .note {
+  fill: var(--ctp-yellow) !important;
+  stroke: var(--ctp-yellow) !important;
+  opacity: 0.2 !important;
+}
+
+.mermaid .noteText {
+  fill: var(--ctp-text) !important;
+}
+
+/* Activation boxes in sequence diagrams */
+.mermaid .activation0,
+.mermaid .activation1,
+.mermaid .activation2 {
+  fill: var(--ctp-blue) !important;
+  opacity: 0.3 !important;
+}
+
+/* Additional selectors for Mermaid node text - highest specificity */
+.mermaid svg .node text,
+.mermaid svg text.nodeLabel,
+.mermaid svg .nodeLabel,
+.mermaid g.node text,
+.mermaid g.label text,
+.mermaid .label-container text,
+.mermaid g.node tspan,
+.mermaid g.label:not(.cluster-label) tspan {
+  fill: var(--ctp-base) !important;
+  color: var(--ctp-base) !important;
+}
+
+/* Force subgraph/cluster titles to be green and visible */
+.mermaid svg g.cluster text,
+.mermaid svg .cluster-label text,
+.mermaid g.cluster-label text,
+.mermaid g[class*="cluster"] text,
+.mermaid .cluster span {
+  fill: var(--ctp-green) !important;
+  color: var(--ctp-green) !important;
+  font-weight: 700 !important;
+  opacity: 1 !important;
+}
+
+/* Override tspan color specifically for cluster labels */
+.mermaid svg g.cluster tspan,
+.mermaid g.cluster-label tspan,
+.mermaid g[class*="cluster"] tspan {
+  fill: var(--ctp-green) !important;
+  color: var(--ctp-green) !important;
+  opacity: 1 !important;
+}
+
+/* FINAL OVERRIDE: Cluster/subgraph labels must be green - highest priority */
+.mermaid svg g[id*="cluster"] text,
+.mermaid svg g[id*="cluster"] tspan,
+.mermaid svg g[id*="flowchart-"]>text,
+.mermaid svg text[class*="cluster"],
+.mermaid svg tspan[class*="cluster"] {
+  fill: var(--ctp-green) !important;
+  color: var(--ctp-green) !important;
+  font-weight: 700 !important;
+  opacity: 1 !important;
+}
+
+/* ABSOLUTE FINAL OVERRIDE for cluster labels - use white color */
+.mermaid svg g.cluster text,
+.mermaid svg g.cluster tspan,
+.mermaid svg g.cluster span,
+.mermaid svg text.cluster-label,
+.mermaid svg tspan.cluster-label {
+  fill: #ffffff !important;
+  color: #ffffff !important;
+  opacity: 1 !important;
+  font-weight: 700 !important;
+  font-size: 16px !important;
+  font-family: 'Overpass Mono', monospace !important;
+}
+
+/* Force Overpass Mono font on all Mermaid text elements */
+.mermaid svg text,
+.mermaid svg tspan {
+  font-family: 'Overpass Mono', monospace !important;
+}
+
+/* Force Overpass Mono specifically on nodes INSIDE clusters */
+.mermaid svg g.cluster text,
+.mermaid svg g.cluster tspan,
+.mermaid svg g[id*="cluster"] text,
+.mermaid svg g[id*="cluster"] tspan,
+.mermaid svg g.nodes g.node text,
+.mermaid svg g.nodes g.node tspan {
+  font-family: 'Overpass Mono', monospace !important;
+}
+
+/* Force underline on section headings inside boxes */
+.section-white h2,
+.section-muted h2 {
+  position: relative !important;
+  display: inline-block !important;
+  padding-bottom: 0.75rem !important;
+}
+
+.section-white h2::after,
+.section-muted h2::after {
+  content: "" !important;
+  position: absolute !important;
+  left: 0 !important;
+  bottom: 0 !important;
+  width: 72px !important;
+  height: 3px !important;
+  border-radius: 2px !important;
+  background: linear-gradient(90deg, #008CC6 0%, #27B2E6 60%, transparent 100%) !important;
+  opacity: 1 !important;
+}
+
+/* Improve readability of HTTP code blocks */
+/* Chroma treats HTTP as errors, so we need to override the .err class specifically for HTTP blocks */
+code.language-http .err {
+  color: #c6d0f5 !important;
+  background: none !important;
+}
+
+/* Override Hextra's built-in callout styling with modern Catppuccin Frappé colors */
+/* Using custom shortcode classes: .callout-info, .callout-warning, .callout-tip, .callout-note */
+
+/* Info callout (Sapphire) */
+.callout-info {
+  background: rgba(133, 193, 220, 0.18) !important;
+  /* Sapphire #85c1dc */
+  border-color: #85c1dc !important;
+  border-left-width: 4px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+  color: #414559 !important;
+}
+
+/* Warning callout (Peach) */
+.callout-warning {
+  background: rgba(239, 159, 118, 0.18) !important;
+  /* Peach #ef9f76 */
+  border-color: #ef9f76 !important;
+  border-left-width: 4px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+  color: #51412a !important;
+}
+
+/* Tip callout (Green) */
+.callout-tip {
+  background: rgba(166, 209, 137, 0.18) !important;
+  /* Green #a6d189 */
+  border-color: #a6d189 !important;
+  border-left-width: 4px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+  color: #3d4f2f !important;
+}
+
+/* Note callout (Lavender) */
+.callout-note {
+  background: rgba(186, 187, 241, 0.18) !important;
+  /* Lavender #babbf1 */
+  border-color: #babbf1 !important;
+  border-left-width: 4px !important;
+  border-radius: 8px !important;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08) !important;
+  color: #414559 !important;
+}
+
+/* Fix landing page footer: Hide the broken/empty theme toggle container and separator */
+.hextra-footer>div.hx\:gap-2,
+.hextra-footer>hr {
+  display: none !important;
+}
+
+/* Project Status Feature Cards - Colored backgrounds to mimic callouts */
+.project-status .hextra-feature-grid .hextra-feature-card:nth-child(1) {
+  background: rgba(133, 193, 220, 0.18) !important;
+  /* Sapphire - info/node style */
+  border: 1px solid rgba(133, 193, 220, 0.3);
+  transition: all 0.2s ease;
+}
+
+.project-status .hextra-feature-grid .hextra-feature-card:nth-child(1):hover {
+  background: rgba(133, 193, 220, 0.25) !important;
+  box-shadow: 0 2px 8px rgba(133, 193, 220, 0.2);
+}
+
+.project-status .hextra-feature-grid .hextra-feature-card:nth-child(2) {
+  background: rgba(239, 159, 118, 0.18) !important;
+  /* Peach - warning style */
+  border: 1px solid rgba(239, 159, 118, 0.3);
+  transition: all 0.2s ease;
+}
+
+.project-status .hextra-feature-grid .hextra-feature-card:nth-child(2):hover {
+  background: rgba(239, 159, 118, 0.25) !important;
+  box-shadow: 0 2px 8px rgba(239, 159, 118, 0.2);
+}
+
+/* Increase subtitle text size for better readability */
+.project-status .hextra-feature-card p {
+  font-size: 1.125rem !important;
+  line-height: 1.6 !important;
+}
+
+/* --- Search Box Customization: Brand Colors --- */
+
+/* Search input focus border - use brand cyan */
+.hextra-search-input:focus,
+input[type="search"]:focus,
+.search-input:focus,
+input.search-input:focus {
+  border-color: var(--brand-cyan-700) !important;
+  outline-color: var(--brand-cyan-700) !important;
+  box-shadow: 0 0 0 2px rgba(0, 140, 198, 0.2) !important;
+}
+
+/* Search results dropdown styling */
+.search-results,
+.flexsearch-results,
+.hextra-search-results,
+div[class*="search-results"],
+div[class*="flexsearch"] {
+  border-color: var(--brand-cyan-700) !important;
+}
+
+/* Highlighted/selected search result item - use light brand cyan background */
+/* Target all possible selectors for result items - including default selected (first item) */
+.search-result,
+.search-result:hover,
+.search-result.active,
+.search-result.selected,
+.search-result:first-child,
+.search-result[aria-selected="true"],
+.flexsearch-result,
+.flexsearch-result:hover,
+.flexsearch-result.active,
+.flexsearch-result.selected,
+.flexsearch-result:first-child,
+.flexsearch-result[aria-selected="true"],
+.hextra-search-result,
+.hextra-search-result:hover,
+.hextra-search-result.active,
+.hextra-search-result.selected,
+.hextra-search-result:first-child,
+.hextra-search-result[aria-selected="true"],
+[data-search-result],
+[data-search-result]:hover,
+[data-search-result].active,
+[data-search-result].selected,
+[data-search-result]:first-child,
+[data-search-result][aria-selected="true"],
+li[class*="search"],
+li[class*="search"]:hover,
+li[class*="search"]:first-child,
+li[class*="result"],
+li[class*="result"]:hover,
+li[class*="result"]:first-child,
+a[class*="search"],
+a[class*="search"]:hover,
+a[class*="search"]:first-child,
+a[class*="result"],
+a[class*="result"]:hover,
+a[class*="result"]:first-child,
+div[class*="search-results"] a,
+div[class*="search-results"] a:hover,
+div[class*="search-results"] a:first-child,
+div[class*="search-results"] li,
+div[class*="search-results"] li:hover,
+div[class*="search-results"] li:first-child,
+div[class*="flexsearch"] a,
+div[class*="flexsearch"] a:hover,
+div[class*="flexsearch"] a:first-child,
+div[class*="flexsearch"] li,
+div[class*="flexsearch"] li:hover,
+div[class*="flexsearch"] li:first-child {
+  background-color: rgba(0, 140, 198, 0.12) !important;
+  border-left-color: var(--brand-cyan-700) !important;
+}
+
+/* Highlighted matching text in search results - use brand cyan */
+/* Target all possible elements and contexts */
+.search-result mark,
+.search-result em,
+.search-result strong,
+.search-result b,
+.flexsearch-result mark,
+.flexsearch-result em,
+.flexsearch-result strong,
+.flexsearch-result b,
+.hextra-search-result mark,
+.hextra-search-result em,
+.hextra-search-result strong,
+.hextra-search-result b,
+[data-search-result] mark,
+[data-search-result] em,
+[data-search-result] strong,
+[data-search-result] b,
+div[class*="search-results"] mark,
+div[class*="search-results"] em,
+div[class*="search-results"] strong,
+div[class*="search-results"] b,
+div[class*="flexsearch"] mark,
+div[class*="flexsearch"] em,
+div[class*="flexsearch"] strong,
+div[class*="flexsearch"] b,
+li[class*="search"] mark,
+li[class*="search"] em,
+li[class*="search"] strong,
+li[class*="search"] b,
+li[class*="result"] mark,
+li[class*="result"] em,
+li[class*="result"] strong,
+li[class*="result"] b,
+a[class*="search"] mark,
+a[class*="search"] em,
+a[class*="search"] strong,
+a[class*="search"] b,
+a[class*="result"] mark,
+a[class*="result"] em,
+a[class*="result"] strong,
+a[class*="result"] b {
+  background-color: transparent !important;
+  color: var(--brand-cyan-700) !important;
+  font-weight: 700 !important;
+}
+
+/* Ultra-specific override for any blue colors in search context */
+[class*="search"] strong,
+[class*="search"] b,
+[class*="result"] strong,
+[class*="result"] b,
+[class*="flexsearch"] strong,
+[class*="flexsearch"] b {
+  color: var(--brand-cyan-700) !important;
+}
+
+/* Specific override for Hextra/Flexsearch highlighted text */
+/* These are common class patterns used by search libraries */
+.highlight,
+.match,
+.search-match,
+.flexsearch-match,
+span[class*="highlight"],
+span[class*="match"] {
+  color: var(--brand-cyan-700) !important;
+  font-weight: 700 !important;
+  background-color: transparent !important;
+}
+
+/* Override any inline styles that might be setting blue color */
+div[class*="search"] [style*="color"],
+div[class*="flexsearch"] [style*="color"],
+li[class*="search"] [style*="color"],
+li[class*="result"] [style*="color"] {
+  color: var(--brand-cyan-700) !important;
+}
+
+/* Target spans within search results more specifically */
+div[class*="search"] span[style],
+div[class*="flexsearch"] span[style],
+li[class*="search"] span[style],
+li[class*="result"] span[style] {
+  color: var(--brand-cyan-700) !important;
+  font-weight: 700 !important;
+}

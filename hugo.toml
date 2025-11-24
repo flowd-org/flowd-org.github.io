@@ -1,0 +1,95 @@
+# Base Hugo configuration
+baseURL = "https://flowd.org/"
+languageCode = "en-us"
+title = "flowd.org"
+
+# Tell Hugo to import the Hextra theme
+[module]
+  [[module.imports]]
+    path = "github.com/imfing/hextra"
+
+  [[module.imports]]
+    path = "github.com/flowd-org/flowd"
+    version = "main"
+    ignoreConfig = true
+    ignoreImports = true
+    [[module.imports.mounts]]
+      source = "docs"
+      target = "content/docs"
+
+# Configure Hextra
+[params]
+  
+  [params.search]
+  enable = true
+  type   = "flexsearch"
+  [params.search.flexsearch]
+  index = "content"       # Options: content (default), summary, heading, title
+  tokenize = "forward"    # Options: strict, forward, reverse, full
+  
+  mainSections = ["docs"]
+
+  [params.navbar]
+    displayTitle = true
+    displayLogo = false
+    links = [
+      { name = "Docs", url = "/docs" },
+      { name = "GitHub", url = "https://github.com/flowd-org/flowd", external = true, icon = "github" }
+    ]
+
+  [params.footer]
+    displayCopyright = true
+    displayPoweredBy = false
+    # Optional tagline (kept empty)
+    text = ""
+    # Site-wide copyright/license line shown in footer
+    copyright = "© 2025 flowd.org. Website content is licensed under the [Creative Commons Attribution 4.0 International License (CC BY 4.0)](https://creativecommons.org/licenses/by/4.0/)."
+
+  # --- Theme & Font Configuration ---
+  
+  [params.font]
+    base = "Overpass"
+    code = "Overpass Mono"
+
+  # Configure the color theme
+  [params.theme]
+    default = "light"
+    
+    # Color palette inspired by the provided image
+    [params.theme.colors]
+      # A vibrant, modern blue for links and accents
+      primary = "#008CC6"
+
+[menu]
+  [[menu.main]]
+    name = "Docs"
+    url = "/docs"
+    weight = 10
+    params = { type = "link" }
+  [[menu.main]]
+    name = "Community"
+    url = "https://github.com/flowd-org/flowd/discussions"
+    weight = 20
+    params = { type = "link", icon = "" }
+  [[menu.main]]
+    name = " "
+    url = "https://github.com/flowd-org/flowd"
+    weight = 40
+    params = { type = "link" }
+  [[menu.main]]
+    name   = "Search"
+    weight = 30
+    [menu.main.params]
+    type = "search"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+  [markup.highlight]
+    # Enable Hugo's built-in Chroma syntax highlighting
+    codeFences = true
+    lineNos = false
+    lineNumbersInTable = false
+    noClasses = false
+    style = "catppuccin-frappe"

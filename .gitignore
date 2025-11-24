@@ -1,0 +1,15 @@
+# Hugo
+/public/
+/content/docs/
+/resources/
+/hugo_stats.json
+
+# Node / tooling
+/node_modules/
+/package-lock.json
+
+# OS/editor
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/

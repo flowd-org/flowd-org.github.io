@@ -1,0 +1,87 @@
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Overpass:wght@400;700;800&family=Overpass+Mono&display=swap"
+    rel="stylesheet">
+<script src="/js/collapsible-cards.js" defer></script>
+<script>
+    // Force light mode and simplify footer on every page
+    document.addEventListener('DOMContentLoaded', function () {
+        try {
+            var root = document.documentElement;
+            root.classList.remove('dark');
+            root.dataset.theme = 'light';
+            localStorage.setItem('theme', 'light');
+        } catch (e) { }
+
+        // Hide any theme toggle controls
+        document.querySelectorAll('.hextra-theme-toggle, .hextra-theme-toggle-options').forEach(function (el) { el.style.display = 'none'; });
+
+        // Build a custom footer into the provided placeholder
+        var slot = document.querySelector('.hextra-custom-footer');
+        if (slot) {
+            // Remove the default copyright/powered-by block that follows the slot
+            var next = slot.nextElementSibling;
+            if (next && next.classList.contains('hextra-max-footer-width')) {
+                next.style.display = 'none';
+            }
+            // Inject our centered copyright + right-aligned Powered by link
+            slot.innerHTML = [
+                '<div class="footer-wrap" style="display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1rem;padding:2rem 1.5rem;">',
+                '  <div></div>',
+                '  <div class="footer-center" style="justify-self:center;font-size:0.9rem;color:#4b5563;">Website content is licensed under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="license noopener" style="font-weight:600;color:inherit;text-decoration:underline;">CC-BY-4.0</a> of the <a href="/" style="font-weight:600;color:inherit;text-decoration:none;">flowd.org</a> project</div>',
+                '  <div class="footer-right" style="justify-self:end;font-weight:600;"><a href="https://github.com/imfing/hextra" target="_blank" rel="noopener" style="color:inherit;text-decoration:none;">Powered by Hextra</a></div>',
+                '</div>'
+            ].join('');
+        }
+    });
+</script>
+<script>
+    // Firefox fallback: render h2 text with SVG gradient so it shows in Firefox
+    document.addEventListener('DOMContentLoaded', function () {
+        var isFirefox = navigator.userAgent.toLowerCase().indexOf('firefox') !== -1;
+        if (!isFirefox) return;
+        var headings = document.querySelectorAll('.hextra-home .content h2');
+        headings.forEach(function (h, idx) {
+            var original = (h.getAttribute('data-raw') || h.textContent || '').trim();
+            function render() {
+                if (!original) return;
+                var cs = getComputedStyle(h);
+                var fontSize = parseFloat(cs.fontSize) || 32;
+                var fontFamily = cs.fontFamily || 'Overpass, sans-serif';
+                var fontWeight = cs.fontWeight || '800';
+                var canvas = document.createElement('canvas');
+                var ctx = canvas.getContext('2d');
+                ctx.font = fontWeight + ' ' + fontSize + 'px ' + fontFamily;
+                var width = Math.ceil(ctx.measureText(original).width) + 2;
+                var height = Math.ceil(fontSize * 1.2);
+                var gradId = 'h2grad-' + idx;
+                var svg = [
+                    '<svg class="h2-svg-gradient" xmlns="http://www.w3.org/2000/svg"',
+                    ' width="', width, '" height="', height, '" viewBox="0 0 ', width, ' ', height, '" preserveAspectRatio="xMinYMid meet">',
+                    '  <defs>',
+                    '    <linearGradient id="', gradId, '" x1="0%" y1="0%" x2="100%" y2="0%">',
+                    '      <stop offset="0%" stop-color="#111111"/>',
+                    '      <stop offset="100%" stop-color="#5b6570"/>',
+                    '    </linearGradient>',
+                    '  </defs>',
+                    '  <text x="0" y="', fontSize, '" fill="url(#', gradId, ')"',
+                    '        font-family="', fontFamily.replace(/"/g, '&quot;'), '"',
+                    '        font-weight="', fontWeight, '"',
+                    '        font-size="', fontSize, '">',
+                    original.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;'),
+                    '</text>',
+                    '</svg>'
+                ].join('');
+                h.setAttribute('data-raw', original);
+                h.setAttribute('aria-label', original);
+                h.innerHTML = '<span class="h2-svg-wrap" style="display:inline-block;line-height:1;vertical-align:baseline">' + svg + '</span>';
+            }
+            render();
+            var resizeTimer;
+            window.addEventListener('resize', function () {
+                clearTimeout(resizeTimer);
+                resizeTimer = setTimeout(render, 120);
+            });
+        });
+    });
+</script>

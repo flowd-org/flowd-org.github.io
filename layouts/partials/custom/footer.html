@@ -1,0 +1,49 @@
+{{- $copyright := site.Params.footer.copyright | default "" -}}
+<div class="custom-copyright hx:text-xs hx:text-gray-600 hx:dark:text-gray-400">
+    {{- if $copyright -}}
+    {{ $copyright | markdownify }}
+    {{- else -}}
+    &copy; {{ now.Year }} {{ .Site.Title }}
+    {{- end -}}
+</div>
+<style>
+    /* Hide the default theme footer container completely */
+    .hextra-footer .hextra-max-footer-width.hx\:mx-auto.hx\:flex {
+        display: none !important;
+    }
+
+    /* Force the custom footer container to be a simple block and add padding */
+    .hextra-custom-footer {
+        display: block !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        flex: none !important;
+        padding-top: 3rem !important;
+        padding-bottom: 3rem !important;
+    }
+
+    /* 
+       High specificity selector to override the grid layout from custom.css 
+       Selector in custom.css: .hextra-footer .hextra-max-footer-width>div
+       Our selector: .hextra-footer .hextra-custom-footer > div.custom-copyright
+    */
+    .hextra-footer .hextra-custom-footer>div.custom-copyright {
+        display: block !important;
+        width: 100% !important;
+        text-align: center !important;
+        margin-left: auto !important;
+        margin-right: auto !important;
+        grid-template-columns: none !important;
+        /* Reset grid just in case */
+    }
+
+    /* Ensure all children (text, links) flow inline */
+    .hextra-footer .hextra-custom-footer>div.custom-copyright * {
+        display: inline !important;
+    }
+
+    .hextra-footer .hextra-custom-footer>div.custom-copyright p {
+        display: inline !important;
+        margin: 0 !important;
+    }
+</style>
