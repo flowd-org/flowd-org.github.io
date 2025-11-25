@@ -28,7 +28,7 @@ page:
         <div class="tmux">
           <div class="tmux__tabs">
             <div class="tmux__dots"><span></span><span></span><span></span></div>
-            <div class="tmux__title">flowd — universal runtime</div>
+            <div class="tmux__title">flwd — universal runtime</div>
             <div class="tmux__tabs-list">
               <span class="tmux__tab tmux__tab--active">1  zsh — myapp/deploy</span>
               <span class="tmux__tab">2  logs</span>
@@ -59,6 +59,18 @@ page:
       </div>
     </div>
   </div>
+</section>
+
+
+<section class="section-white">
+{{< hextra/hero-section heading="h2" style="margin-top:0.5rem;margin-bottom:0.5rem;" >}}What is FLOWD?{{< /hextra/hero-section >}}
+
+<p class="section-subhead">FLOWD stands for <strong>Framework for Language-agnostic Orchestration of Workflows Distributed</strong>.</p>
+<br>
+<p class="section-subhead">Instead of inventing another buzzword, the name describes what the engine actually does: take plain scripts in your language of choice, orchestrate them as reusable workflows, and run them consistently across CLI, TUI and HTTP.</p>
+<br>
+<p class="section-subhead"><strong><code>flwd</code></strong> (pronounced "flowed") is the reference engine that implements <strong>FLOWD</strong> — one binary, one contract, any language that can speak stdin/stdout and environment variables.</p>
+
 </section>
 
 

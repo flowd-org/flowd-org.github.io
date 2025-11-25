@@ -3,6 +3,8 @@
 /content/docs/
 /resources/
 /hugo_stats.json
+/.hugo_build.lock
+/hugo.direct.sum
 
 # Node / tooling
 /node_modules/
