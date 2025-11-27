@@ -90,6 +90,7 @@ Every new script has to reinvent the same things:</p>
   <li>argument parsing and <code>--help</code></li>
   <li>validation and enums</li>
   <li>logging, error handling and exit codes</li>
+  <li>shell completion</li>
   <li>a bit of security hardening</li>
   <li>some way to test it in CI</li>
 </ul>
