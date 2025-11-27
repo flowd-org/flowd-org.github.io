@@ -2150,7 +2150,7 @@ a[class*="result"] b {
 
 /* Specific override for Hextra/Flexsearch highlighted text */
 /* These are common class patterns used by search libraries */
-.highlight,
+span.highlight,
 .match,
 .search-match,
 .flexsearch-match,
