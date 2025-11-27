@@ -74,6 +74,44 @@ page:
 </section>
 
 
+<section class="section-white" style="background: linear-gradient(135deg, rgba(245, 250, 255, 0.98) 0%, rgba(234, 246, 255, 0.96) 45%, rgba(0, 140, 198, 0.06) 100%) !important; box-shadow: none !important; margin-left: auto !important; margin-right: auto !important; width: 100% !important;">
+{{< hextra/hero-section heading="h2" style="margin-top:3rem;margin-bottom:1.25rem;" >}}Why Not "Just Bash or PowerShell"?{{< /hextra/hero-section >}}
+
+<h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem; font-size: 1.3rem; font-weight: 600; color: #1a1a1a;">Most teams already have “automation”:</h3>
+<br>
+<p class="section-subhead" style="margin-bottom: 1.5rem;">Raw Bash/Pwsh scripts (and sometimes Python or other glue) wired together with SSH, cron and CI jobs, etc.</p>
+
+<h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem; font-size: 1.3rem; font-weight: 600; color: #1a1a1a;">So why bother with <code>flwd</code>?</h3>
+<br>
+<p class="section-subhead" style="margin-bottom: 0.75rem;">Because shells are great <strong>languages</strong>, but very weak <strong>platforms</strong>. 
+Every new script has to reinvent the same things:</p>
+<br>
+<ul class="section-subhead" style="list-style-type: disc; padding-left: 2rem; margin-bottom: 1rem;">
+  <li>argument parsing and <code>--help</code></li>
+  <li>validation and enums</li>
+  <li>logging, error handling and exit codes</li>
+  <li>a bit of security hardening</li>
+  <li>some way to test it in CI</li>
+</ul>
+<br>
+<p class="section-subhead" style="margin-bottom: 1.5rem;">Each author does it differently, and the fragile bits (quoting, spaces, encoding, env, strict mode) are easy to get wrong and hard to see until production.</p>
+
+<h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem; font-size: 1.3rem; font-weight: 600; color: #1a1a1a;">Keeps Bash/Pwsh for the actual work. Moves the boring, dangerous parts to the engine:</h3>
+<br>
+<ul class="section-subhead" style="list-style-type: disc; padding-left: 2rem; margin-bottom: 1rem;">
+  <li>Inputs are declared once (ArgSpec) → <code>flwd</code> generates flags, <code>--help</code>, completion and validation.</li>
+  <li>Jobs run in a <strong>controlled profile</strong> (secure/permissive/disabled), not "whatever the shell got".</li>
+  <li>Runs have IDs, structured events and metrics → you get auditability and observability by default.</li>
+  <li>Jobs are treated as <strong>software with tests</strong>, with standard scaffolding and a QA path.</li>
+</ul>
+
+<h3 style="margin-top: 1.5rem; margin-bottom: 0.75rem; font-size: 1.3rem; font-weight: 600; color: #1a1a1a;">You still write small shell scripts.</h3>
+<br>
+<p class="section-subhead" style="margin-bottom: 2rem;"><code>flwd</code> makes them <strong>typed, observable and policy-driven</strong> so you can focus on <em>what</em> the workflow does, not on re-building the plumbing every time.</p>
+
+</section>
+
+
 <section class="section-white project-status">
 {{< hextra/hero-section heading="h2" style="margin-top:0.5rem;margin-bottom:0.5rem;" >}}Project Status {{< /hextra/hero-section >}}
 
